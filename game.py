@@ -43,6 +43,7 @@ def solve():
                 return
     print(np.matrix(game_board))
     input("MORE?")
+    return print("All solutions completed")
 
 
 solve()
