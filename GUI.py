@@ -25,7 +25,7 @@ blue = (0, 0, 128)
 black = (0, 0, 0)
 
 gameDisplay = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-pygame.display.set_caption('A bit Racey')
+pygame.display.set_caption('Missile Dodgers!')
 clock = pygame.time.Clock()
 
 
@@ -56,6 +56,9 @@ def game_intro():
 
 def game_outro():
     outro = True
+    crash_sound = pygame.mixer.Sound("C:/Users/robbi/Python/sudoku/crash.wav")
+    crash_sound.play()
+    crash_sound.set_volume(0.2)
     while outro:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -109,7 +112,12 @@ def main_game():
         def __init__(self):
             super(Player, self).__init__()
             self.surf = pygame.image.load("C:/Users/robbi/Python/sudoku/jet.png").convert_alpha()
-            self.rect = self.surf.get_rect()
+            self.rect = self.surf.get_rect(
+                center=(
+                    0,
+                    SCREEN_HEIGHT / 2
+                )
+            )
 
         def update(self, key_press):
             if key_press[K_UP]:
@@ -143,9 +151,9 @@ def main_game():
     pygame.mixer.set_num_channels(8)
     pygame.mixer.music.load("theme.mp3")
     pygame.mixer.music.play(loops=-1)
+    pygame.mixer.music.set_volume(0.5)
     move_up_sound = pygame.mixer.Sound("C:/Users/robbi/Python/sudoku/up.wav")
     move_down_sound = pygame.mixer.Sound("C:/Users/robbi/Python/sudoku/down.wav")
-    crash_sound = pygame.mixer.Sound("C:/Users/robbi/Python/sudoku/crash.wav")
 
     move_up_sound.set_volume(0.2)
     move_down_sound.set_volume(0.2)
@@ -168,7 +176,7 @@ def main_game():
         # text surface object
         textRect = text.get_rect()
 
-        textRect.center = (60, 30)
+        textRect.center = (120, 30)
         score += 1
 
         for event in pygame.event.get():
@@ -213,11 +221,6 @@ def main_game():
             pygame.mixer.music.stop()
             game_outro()
             running = False
-
-        surface_center = (
-            (SCREEN_WIDTH - player.surf.get_width()) / 2,
-            (SCREEN_HEIGHT - player.surf.get_height()) / 2
-        )
 
         screen.blit(player.surf, player.rect)
         pygame.display.flip()
