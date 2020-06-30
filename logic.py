@@ -1,5 +1,3 @@
-import numpy as np
-
 
 game_board = [[5, 3, 0, 0, 7, 0, 0, 0, 0],
               [6, 0, 0, 1, 9, 5, 0, 0, 0],
@@ -26,7 +24,6 @@ def possible(y, x, n):
         for j in range(0, 3):
             if game_board[y0+i][x0+j] == n:
                 return False
-
     return True
 
 
@@ -41,9 +38,8 @@ def solve():
                         solve()
                         game_board[y][x] = 0
                 return
-    print(np.matrix(game_board))
-    input("MORE?")
-    return print("All solutions completed")
+    new_list = game_board
+    print(new_list)
+    return new_list
 
 
-solve()
